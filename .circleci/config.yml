@@ -1,5 +1,11 @@
 version: 2.1
 
+
+defaults: &defaults
+  docker:
+    - image: cimg/base:2020.01
+
+
 workflows:
   say-hello-workflow:
     jobs:
@@ -8,10 +14,11 @@ workflows:
           requires:
             - save_hello_world_output
 
+
+
 jobs:
   print_hello:
-    docker:
-      - image: cimg/base:2020.01
+    <<: *defaults
     environment:
       TempVariable: My pipeline id is << pipeline.id >>,pipeline number is <<pipeline.number>>,project git_url is <<pipeline.project.git_url>>,commit refernece is ${CIRCLE_SHA1} and my git branch is << pipeline.git.branch >> 
     steps:
@@ -22,8 +29,7 @@ jobs:
             echo $JSB_ENV_VAR2      
 
   save_hello_world_output:
-      docker:
-        - image: cimg/base:2020.01
+    <<: *defaults
       steps:
         - run: echo "text to output here" > ~/output.txt
         - persist_to_workspace:
@@ -31,8 +37,7 @@ jobs:
             paths: output.txt
 
   print_output_file:
-      docker:
-        - image: cimg/base:2020.01
+    <<: *defaults
       steps:
         - attach_workspace:
             at: ~/
