@@ -16,8 +16,7 @@ jobs:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - run:
-          command: "echo world"      
+      - run: echo Welcome Mr.${JSB_ENV_VAR}
 
 workflows:
   say-hello-workflow:
