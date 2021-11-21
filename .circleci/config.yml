@@ -8,8 +8,9 @@ workflows:
   say-hello-workflow:
     jobs:
       #- save_hello_world_output
-      - print_hello
-      #- print_output_file:
+      #- print_hello
+      - failing_step
+     #- print_output_file:
        #   requires:
         #    - save_hello_world_output
 
@@ -42,3 +43,13 @@ jobs:
      # TempVariable: My pipeline id is << pipeline.id >>,pipeline number is <<pipeline.number>>,project git_url is <<pipeline.project.git_url>>,commit reference is ${CIRCLE_SHA1} and my git branch is << pipeline.git.branch >>
     steps:
       - print_pipeline_id
+
+  failing_step:
+    <<: *defaults
+      #environment:
+    # TempVariable: My pipeline id is << pipeline.id >>,pipeline number is <<pipeline.number>>,project git_url is <<pipeline.project.git_url>>,commit reference is ${CIRCLE_SHA1} and my git branch is << pipeline.git.branch >>
+    steps:
+      - run: return 1
+      - run:
+          echo "the previous step has failed"
+          when: on_fail
