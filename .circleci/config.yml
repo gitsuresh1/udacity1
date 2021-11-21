@@ -20,7 +20,7 @@ jobs:
     steps:
       - run: echo $TempVariable
       - run:
-          name: "echo an env var that is part of our project"
+          name: "echo an env var that is part of our projects"
           command: |
             echo $JSB_ENV_VAR2      
 
