@@ -12,17 +12,6 @@ workflows:
           requires:
             - save_hello_world_output
 jobs:
-  print_hello:
-    <<: *defaults
-    environment:
-      TempVariable: My pipeline id is << pipeline.id >>,pipeline number is <<pipeline.number>>,project git_url is <<pipeline.project.git_url>>,commit refernece is ${CIRCLE_SHA1} and my git branch is << pipeline.git.branch >> 
-    steps:
-      - run: echo $TempVariable
-      - run:
-          name: "echo an env var that is part of our projects"
-          command: |
-            echo $JSB_ENV_VAR2      
-
   save_hello_world_output:
     <<: *defaults
     steps:
@@ -38,3 +27,14 @@ jobs:
           at: ~/
       - run: echo "Getting the contents of the file output.txt"            
       - run: cat ~/output.txt
+
+  print_hello:
+    <<: *defaults
+    environment:
+      TempVariable: My pipeline id is << pipeline.id >>,pipeline number is <<pipeline.number>>,project git_url is <<pipeline.project.git_url>>,commit refernece is ${CIRCLE_SHA1} and my git branch is << pipeline.git.branch >>
+    steps:
+      - run: echo $TempVariable
+      - run:
+          name: "echo an env var that is part of our projects"
+          command: |
+            echo $JSB_ENV_VAR2
