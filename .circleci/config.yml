@@ -6,9 +6,7 @@ jobs:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - run:
-          command: "echo hello"    
-      - run: echo  "The pipeline id is <<pipeline.id>>"      
+      - run: echo "My pipeline id is << pipeline.id >>,pipeline number is <<pipeline.number>>,project git_url is <<pipeline.project.git_url>> and my git branch is << pipeline.git.branch >>"
 
   print_world:
     docker:
