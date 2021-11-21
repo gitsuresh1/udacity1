@@ -5,8 +5,12 @@ jobs:
   print_hello:
     docker:
       - image: circleci/node:13.8.0
+
+    environment:
+      TempVariable: My pipeline id is << pipeline.id >>,pipeline number is <<pipeline.number>>,project git_url is <<pipeline.project.git_url>> and my git branch is << pipeline.git.branch >>
+
     steps:
-      - run: echo "My pipeline id is << pipeline.id >>,pipeline number is <<pipeline.number>>,project git_url is <<pipeline.project.git_url>> and my git branch is << pipeline.git.branch >>"
+      - run: echo $TempVariable
 
   print_world:
     docker:
