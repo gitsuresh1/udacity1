@@ -1,7 +1,7 @@
 defaults: &defaults
   docker:
     - image: cimg/base:2020.01
-    
+
 version: 2.1
 
 workflows:
@@ -11,8 +11,6 @@ workflows:
       - print_output_file:
           requires:
             - save_hello_world_output
-
-
 
 jobs:
   print_hello:
