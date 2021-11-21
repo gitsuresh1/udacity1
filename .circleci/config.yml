@@ -7,7 +7,7 @@ jobs:
       - image: circleci/node:13.8.0
 
     environment:
-      TempVariable: My pipeline id is << pipeline.id >>,pipeline number is <<pipeline.number>>,project git_url is <<pipeline.project.git_url>> and my git branch is << pipeline.git.branch >>
+      TempVariable: My pipeline id is << pipeline.id >>,pipeline number is <<pipeline.number>>,project git_url is <<pipeline.project.git_url>>,commit refernece is ${CIRCLE_SHA1} and my git branch is << pipeline.git.branch >> 
 
     steps:
       - run: echo $TempVariable
