@@ -37,7 +37,7 @@ jobs:
       - run: cat ~/output.txt
 
   print_hello:
-    #<<: *defaults
+    <<: *defaults
     #environment:
      # TempVariable: My pipeline id is << pipeline.id >>,pipeline number is <<pipeline.number>>,project git_url is <<pipeline.project.git_url>>,commit reference is ${CIRCLE_SHA1} and my git branch is << pipeline.git.branch >>
     steps:
