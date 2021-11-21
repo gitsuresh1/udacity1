@@ -8,6 +8,7 @@ jobs:
     steps:
       - run:
           command: "echo hello"    
+          command: "The pipeline id is <<pipeline.id>>"  
 
   print_world:
     docker:
