@@ -7,11 +7,18 @@ version: 2.1
 workflows:
   say-hello-workflow:
     jobs:
-      - save_hello_world_output
-      - print_hello      
-      - print_output_file:
-          requires:
-            - save_hello_world_output
+      #- save_hello_world_output
+      - print_hello
+      #- print_output_file:
+       #   requires:
+        #    - save_hello_world_output
+
+commands:
+  print_pipeline_id:
+    description: "prints the Circle CI Workflow ID from its environment variable"
+    steps:
+      -run: echo $CIRCLE_WORKFLOW_ID
+
 jobs:
   save_hello_world_output:
     <<: *defaults
@@ -31,11 +38,7 @@ jobs:
 
   print_hello:
     <<: *defaults
-    environment:
-      TempVariable: My pipeline id is << pipeline.id >>,pipeline number is <<pipeline.number>>,project git_url is <<pipeline.project.git_url>>,commit refernece is ${CIRCLE_SHA1} and my git branch is << pipeline.git.branch >>
+    #environment:
+     # TempVariable: My pipeline id is << pipeline.id >>,pipeline number is <<pipeline.number>>,project git_url is <<pipeline.project.git_url>>,commit reference is ${CIRCLE_SHA1} and my git branch is << pipeline.git.branch >>
     steps:
-      - run: echo $TempVariable
-      - run:
-          name: "echo an env var that is part of our projects"
-          command: |
-            echo $JSB_ENV_VAR2
+      - print_pipeline_id
