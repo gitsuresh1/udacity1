@@ -49,7 +49,8 @@ jobs:
       #environment:
     # TempVariable: My pipeline id is << pipeline.id >>,pipeline number is <<pipeline.number>>,project git_url is <<pipeline.project.git_url>>,commit reference is ${CIRCLE_SHA1} and my git branch is << pipeline.git.branch >>
     steps:
-      - run: return 1
+      - run: exit 1
       - run:
+          name: on error
           echo "the previous step has failed"
           when: on_fail
