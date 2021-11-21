@@ -3,9 +3,10 @@ version: 2.1
 workflows:
   say-hello-workflow:
     jobs:
-      - print_hello 
       - save_hello_world_output
-      - print_output_file
+      - print_output_file:
+          requires:
+            - save_hello_world_output
 
 jobs:
   print_hello:
@@ -24,9 +25,9 @@ jobs:
       docker:
         - image: cimg/base:2020.01
       steps:
-        - run: echo "text to output here" > output.txt
+        - run: echo "text to output here" > ~/output.txt
         - persist_to_workspace:
-            root: /tmp/workspace
+            root: ~/
             paths: output.txt
 
   print_output_file:
@@ -34,6 +35,6 @@ jobs:
         - image: cimg/base:2020.01
       steps:
         - attach_workspace:
-            at: /tmp/workspace
+            at: ~/
         - run: echo "Getting the contents of the file output.txt"            
-        - run: cat output.txt 
+        - run: cat ~/output.txt
