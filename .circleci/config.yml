@@ -52,5 +52,5 @@ jobs:
       - run: exit 1
       - run:
           name: on error
-          echo "the previous step has failed"
+          echo the previous step has failed
           when: on_fail
