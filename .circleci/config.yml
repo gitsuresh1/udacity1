@@ -3,9 +3,28 @@ version: 2.1
 workflows:
   say-hello-workflow:
     jobs:
-    - create_infrastructure
+    #- create_infrastructure
+    - configure_infrastructure
 
 jobs:
+  # Exercise: Config and Deployment
+  configure_infrastructure:
+    docker:
+      - image: python:3.7-alpine3.11
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: [ "bb:81:22:d4:f6:71:c1:bd:29:15:a4:4a:0e:eb:07:61" ]
+      - run:
+          name: Install Ansible
+          command: |
+            apk add --update ansible
+      - run:
+          name: Run Playbook and Configure server
+          command: |
+            ansible-playbook -i inventory main.yml
+
+
   create_infrastructure:
     docker:
       - image: amazon/aws-cli
