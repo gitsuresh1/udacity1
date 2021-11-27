@@ -3,7 +3,7 @@ version: 2.1
 workflows:
   say-hello-workflow:
     jobs:
-      create_infrastructure
+    - create_infrastructure
 
 jobs:
   create_infrastructure:
