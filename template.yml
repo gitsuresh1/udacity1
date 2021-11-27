@@ -1,38 +1,6 @@
-# Exercise - Rollback
 AWSTemplateFormatVersion: 2010-09-09
 Description: Create the CloudFormation template
 Resources:
-  VPC:
-    Type: AWS::EC2::VPC
-    Properties:
-      CidrBlock: 10.0.0.0/16
-      EnableDnsHostnames: true
-      Tags:
-        - Key: Name
-          Value: CircleCIDemo1
-
-  PublicSubnet1:
-    Type: AWS::EC2::Subnet
-    Properties:
-      VpcId: !Ref VPC
-      AvailabilityZone: !Select [ 0, !GetAZs '' ]
-      CidrBlock: 10.0.0.0/24
-      MapPublicIpOnLaunch: true
-      Tags:
-        - Key: Name
-          Value: CircleCIDemo1 Public Subnet (AZ1)
-
-  PublicSubnet2:
-    Type: AWS::EC2::Subnet
-    Properties:
-      VpcId: !Ref VPC
-      AvailabilityZone: !Select [ 1, !GetAZs '' ]
-      CidrBlock: 10.0.1.0/24
-      MapPublicIpOnLaunch: true
-      Tags:
-        - Key: Name
-          Value: CircleCIDemo1 Public Subnet (AZ2)
-
   EC2Instance:
     Type: 'AWS::EC2::Instance'
     Properties:
@@ -41,8 +9,6 @@ Resources:
       KeyName: Jsb-KeyPair
       ImageId: 'ami-036d46416a34a611c' # you may need to find out what instance types are available in your region - use https://cloud-images.ubuntu.com/locator/ec2/
       InstanceType: t3.micro
-      SubnetId: !Ref PublicSubnet1
-
 
   InstanceSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
