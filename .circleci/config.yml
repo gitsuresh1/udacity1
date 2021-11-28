@@ -17,6 +17,10 @@ jobs:
           command: |
             apk add --update ansible
       - checkout
+      - run:
+          name: Run Playbook and Configure server
+          command: |
+            ansible-playbook -i inventory main.yml
 
 
   create_infrastructure:
