@@ -1,4 +1,12 @@
 version: 2.1
+commands:
+  destroy_environment:
+    steps:
+      - run:
+          name: Destroy environment
+          when: on_fail
+          command: |
+            aws cloudformation delete-stack --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:7} --region us-east-1
 
 workflows:
   say-hello-workflow:
@@ -6,9 +14,20 @@ workflows:
     - create_infrastructure
     #- configure_infrastructure
     #- smoke_test
+    - smoke_test_rollback
 
 jobs:
-  # Exercise: Smoke test to validate/verify
+  # Exercise: Smoke test to perform rollback
+  smoke_test_rollback:
+    docker:
+      - image: alpine:latest
+    steps:
+      - run:
+          name: smoke test
+          command: return 1
+      - destroy_environment
+
+      # Exercise: Smoke test to validate/verify
   smoke_test:
     docker:
       - image: alpine:latest
@@ -42,7 +61,6 @@ jobs:
           command: |
             ansible-playbook -i inventory main.yml
 
-
   create_infrastructure:
     docker:
       - image: amazon/aws-cli
@@ -53,5 +71,5 @@ jobs:
           command: |
               aws cloudformation deploy \
               --template-file template.yml \
-              --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
+              --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:7} \
               --region us-east-1
