@@ -21,7 +21,9 @@ workflows:
     - create_infrastructure
     #- configure_infrastructure
     #- smoke_test
-    - smoke_test_rollback
+    - smoke_test_rollback:
+        requires:
+          - create_infrastructure
 
 jobs:
   # Exercise: Smoke test to perform rollback
