@@ -3,8 +3,8 @@ version: 2.1
 workflows:
   say-hello-workflow:
     jobs:
-    #- create_infrastructure
-    - configure_infrastructure
+    - create_infrastructure
+    #- configure_infrastructure
 
 jobs:
   # Exercise: Config and Deployment
